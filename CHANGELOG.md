@@ -1,4 +1,4 @@
-## 0.4.0
+## 0.6.0
 - Help text
 - Track errors just so we could have a make target in our Makefile in the rust api server aran.
 - Format template.dot to different colors.

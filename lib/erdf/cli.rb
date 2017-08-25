@@ -11,15 +11,15 @@ class Erdf::CLI
       puts 'Error: Args missing'
       puts ' > Help'
       puts ' > ----'
-      puts '   eldr file <filename> <output_file.png>'
-      puts '   eldr database erde database postgres://postgres:postgres@localhost/rioosdb?search_path=shard_0,public ./schema.png <output_file.png>'
+      puts '   erdf file <filename> <output_file.png>'
+      puts '   erdf database erde database postgres://postgres:postgres@localhost/rioosdb?search_path=shard_0,public ./schema.png <output_file.png>'
     exit
     end
 
     command = args.shift.strip
     case command
     when "version"
-      puts 'eldr 1.0'
+      puts 'erdf 0.6.1'
       exit
     when command == "file"
       file = Pathname(args.shift.strip)
@@ -35,8 +35,8 @@ class Erdf::CLI
       puts ''
       puts ' > Help'
       puts ' > ----'
-      puts '   eldr file <filename> <output_file.png>'
-      puts '   eldr database erde database postgres://postgres:postgres@localhost/rioosdb?search_path=shard_0,public ./schema.png <output_file.png>'
+      puts '   erdf file <filename> <output_file.png>'
+      puts '   erdf database erde database postgres://postgres:postgres@localhost/rioosdb?search_path=shard_0,public ./schema.png <output_file.png>'
       exit
     end
 
