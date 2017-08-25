@@ -5,4 +5,4 @@ bin_file = Pathname.new(__FILE__).realpath
 $:.unshift File.expand_path("../../lib", bin_file)
 
 require "erdf/cli"
-Erde::CLI.start(*ARGV)
+Erdf::CLI.start(*ARGV)
