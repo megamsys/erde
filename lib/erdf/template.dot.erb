@@ -1,0 +1,18 @@
+<%= table_name %> [label=<
+  <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+    <TR>
+      <TD BGCOLOR="steelblue"><%= table_name %></TD>
+    </TR>
+    <TR>
+      <TD>
+        <TABLE  BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+        <% for @column in table_schema['columns'] %>
+          <TR BGCOLOR="goldenrod" BORDER="1">
+            <TD PORT="<%= @column %>"><%= @column %></TD>
+          </TR>
+        <% end %>
+        </TABLE>
+      </TD>
+    </TR>
+  </TABLE>
+>];

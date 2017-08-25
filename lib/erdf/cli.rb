@@ -1,27 +1,46 @@
-require "erde"
+require "erdf"
 require "pathname"
 require "open3"
 require "sequel"
 require "erb"
 
-class Erde::CLI
+class Erdf::CLI
   def self.start(*args)
-    command = args.shift.strip
 
-    if command == "file"
+    if ARGV.empty?
+      puts 'Error: Args missing'
+      puts ' > Help'
+      puts ' > ----'
+      puts '   eldr file <filename> <output_file.png>'
+      puts '   eldr database erde database postgres://postgres:postgres@localhost/rioosdb?search_path=shard_0,public ./schema.png <output_file.png>'
+    exit
+    end
+
+    command = args.shift.strip
+    case command
+    when "version"
+      puts 'eldr 1.0'
+      exit
+    when command == "file"
       file = Pathname(args.shift.strip)
       input = file.read
-      text_transformer = Erde::TextTransformer.new(input)
+      text_transformer = Erdf::TextTransformer.new(input)
       hash_schema = text_transformer.to_hash
-    end
-
-    if command == "database"
+    when command == "database"
       url = args.shift.strip
-      database_transformer = Erde::DatabaseTransformer.new(url)
+      database_transformer = Erdf::DatabaseTransformer.new(url)
       hash_schema = database_transformer.to_hash
+    else
+      printf('Error: "%s"  - command not found', command)
+      puts ''
+      puts ' > Help'
+      puts ' > ----'
+      puts '   eldr file <filename> <output_file.png>'
+      puts '   eldr database erde database postgres://postgres:postgres@localhost/rioosdb?search_path=shard_0,public ./schema.png <output_file.png>'
+      exit
     end
 
-    hash_transformer = Erde::HashTransformer.new(hash_schema)
+    hash_transformer = Erdf::HashTransformer.new(hash_schema)
     dot_schema = hash_transformer.to_dot
 
     output_file = args.shift.strip
@@ -30,7 +49,7 @@ class Erde::CLI
   end
 end
 
-class Erde::HashTransformer
+class Erdf::HashTransformer
   def initialize(hash)
     @hash = hash
   end
@@ -57,7 +76,7 @@ class Erde::HashTransformer
   end
 end
 
-class Erde::DatabaseTransformer
+class Erdf::DatabaseTransformer
   def initialize(url)
     @url = url
   end
@@ -86,7 +105,7 @@ class Erde::DatabaseTransformer
   end
 end
 
-class Erde::TextTransformer
+class Erdf::TextTransformer
   def initialize(text)
     @lines = text.lines
   end
