@@ -17,16 +17,17 @@ class Erdf::CLI
     end
 
     command = args.shift.strip
+
     case command
     when "version"
       puts 'erdf 0.6.1'
       exit
-    when command == "file"
+    when "file"
       file = Pathname(args.shift.strip)
       input = file.read
       text_transformer = Erdf::TextTransformer.new(input)
       hash_schema = text_transformer.to_hash
-    when command == "database"
+    when "database"
       url = args.shift.strip
       database_transformer = Erdf::DatabaseTransformer.new(url)
       hash_schema = database_transformer.to_hash
